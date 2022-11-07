@@ -2,7 +2,8 @@ package grpc
 
 import (
 	"context"
-	"github.com/Terry-Mao/goim/services/comet/internal"
+	comet "github.com/Terry-Mao/goim/services/comet/internal"
+
 	"github.com/Terry-Mao/goim/services/comet/internal/conf"
 	"github.com/Terry-Mao/goim/services/comet/internal/errors"
 	"net"
@@ -14,7 +15,7 @@ import (
 )
 
 // New comet grpc server.
-func New(c *conf.RPCServer, s *internal.Server) *grpc.Server {
+func New(c *conf.RPCServer, s *comet.Server) *grpc.Server {
 	keepParams := grpc.KeepaliveParams(keepalive.ServerParameters{
 		MaxConnectionIdle:     time.Duration(c.IdleTimeout),
 		MaxConnectionAgeGrace: time.Duration(c.ForceCloseWait),
@@ -37,7 +38,7 @@ func New(c *conf.RPCServer, s *internal.Server) *grpc.Server {
 }
 
 type server struct {
-	srv *internal.Server
+	srv *comet.Server
 }
 
 var _ pb.CometServer = &server{}
