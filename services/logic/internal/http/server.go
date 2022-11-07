@@ -1,7 +1,7 @@
 package http
 
 import (
-	"github.com/Terry-Mao/goim/services/logic/internal"
+	logic "github.com/Terry-Mao/goim/services/logic/internal"
 	"github.com/Terry-Mao/goim/services/logic/internal/conf"
 
 	"github.com/gin-gonic/gin"
@@ -10,11 +10,11 @@ import (
 // Server is http server.
 type Server struct {
 	engine *gin.Engine
-	logic  *internal.Logic
+	logic  *logic.Logic
 }
 
 // New new a http server.
-func New(c *conf.HTTPServer, l *internal.Logic) *Server {
+func New(c *conf.HTTPServer, l *logic.Logic) *Server {
 	engine := gin.New()
 	engine.Use(loggerHandler, recoverHandler)
 	go func() {

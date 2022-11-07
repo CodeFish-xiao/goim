@@ -27,7 +27,7 @@ func main() {
 	dis := naming.New(conf.Conf.Discovery)
 	resolver.Register(dis)
 	// job
-	j := internal.New(conf.Conf)
+	j := job.New(conf.Conf)
 	go j.Consume()
 	// signal
 	c := make(chan os.Signal, 1)

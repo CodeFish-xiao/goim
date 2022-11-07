@@ -2,7 +2,8 @@ package grpc
 
 import (
 	"context"
-	"github.com/Terry-Mao/goim/services/logic/internal"
+	logic "github.com/Terry-Mao/goim/services/logic/internal"
+
 	"github.com/Terry-Mao/goim/services/logic/internal/conf"
 	"net"
 	"time"
@@ -16,7 +17,7 @@ import (
 )
 
 // New logic grpc server
-func New(c *conf.RPCServer, l *internal.Logic) *grpc.Server {
+func New(c *conf.RPCServer, l *logic.Logic) *grpc.Server {
 	keepParams := grpc.KeepaliveParams(keepalive.ServerParameters{
 		MaxConnectionIdle:     time.Duration(c.IdleTimeout),
 		MaxConnectionAgeGrace: time.Duration(c.ForceCloseWait),
@@ -39,7 +40,7 @@ func New(c *conf.RPCServer, l *internal.Logic) *grpc.Server {
 }
 
 type server struct {
-	srv *internal.Logic
+	srv *logic.Logic
 }
 
 var _ pb.LogicServer = &server{}

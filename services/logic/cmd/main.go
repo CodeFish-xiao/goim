@@ -3,7 +3,8 @@ package main
 import (
 	"context"
 	"flag"
-	"github.com/Terry-Mao/goim/services/logic/internal"
+	logic "github.com/Terry-Mao/goim/services/logic/internal"
+
 	"github.com/Terry-Mao/goim/services/logic/internal/conf"
 	"github.com/Terry-Mao/goim/services/logic/internal/grpc"
 	"github.com/Terry-Mao/goim/services/logic/internal/http"
@@ -35,7 +36,7 @@ func main() {
 	dis := naming.New(conf.Conf.Discovery)
 	resolver.Register(dis)
 	// logic
-	srv := internal.New(conf.Conf)
+	srv := logic.New(conf.Conf)
 	httpSrv := http.New(conf.Conf.HTTPServer, srv)
 	rpcSrv := grpc.New(conf.Conf.RPCServer, srv)
 	cancel := register(dis, srv)
@@ -63,7 +64,7 @@ func main() {
 	}
 }
 
-func register(dis *naming.Discovery, srv *internal.Logic) context.CancelFunc {
+func register(dis *naming.Discovery, srv *logic.Logic) context.CancelFunc {
 	env := conf.Conf.Env
 	addr := ip.InternalIP()
 	_, port, _ := net.SplitHostPort(conf.Conf.RPCServer.Addr)

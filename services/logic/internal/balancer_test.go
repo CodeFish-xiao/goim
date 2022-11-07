@@ -1,4 +1,4 @@
-package internal
+package logic
 
 import (
 	"github.com/Terry-Mao/goim/services/logic/internal/model"
